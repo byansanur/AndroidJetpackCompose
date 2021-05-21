@@ -3,6 +3,7 @@ package com.example.composeexample2
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -20,18 +21,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.composeexample2.fragment.RecipeListFragment
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
+//        setContent {
 //            ColumnLayout()
 //            RowLayout()
-            RowColumnLayout()
-        }
+//            RowColumnLayout()
+//        }
+
+        // fragment in jetpack
+        setContentView(R.layout.activity_main)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, RecipeListFragment())
+            .commit()
+
     }
 }
 
+/*
 @Composable
 fun ColumnLayout() {
     Column(
@@ -128,7 +138,7 @@ fun RowColumnLayout() {
             painter = painterResource(id = R.drawable.helm),
             contentDescription = "contentDes",
             modifier = Modifier.height(300.dp),
-            contentScale = ContentScale.Fit
+            contentScale = ContentScale.Crop
         )
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
@@ -172,10 +182,12 @@ fun RowColumnLayout() {
     }
 }
 
-@Preview
-@Composable
-fun Preview() {
-//    ColumnLayout()
-//    RowLayout()
-    RowColumnLayout()
-}
+//@Preview
+//@Composable
+//fun Preview() {
+////    ColumnLayout()
+////    RowLayout()
+////    RowColumnLayout()
+//}
+
+ */
