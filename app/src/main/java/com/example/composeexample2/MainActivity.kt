@@ -21,7 +21,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.composeexample2.domain.model.Recipe
 import com.example.composeexample2.fragment.RecipeListFragment
+import com.example.composeexample2.network.model.RecipeNetworkEntity
+import com.example.composeexample2.network.model.RecipeNetworkMapper
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +40,11 @@ class MainActivity : AppCompatActivity() {
 //        supportFragmentManager.beginTransaction()
 //            .replace(R.id.mainContainer, RecipeListFragment())
 //            .commit()
+
+        val mapper = RecipeNetworkMapper()
+        val recipe = Recipe()
+        val networkEntity: RecipeNetworkEntity = mapper.mapToEntity(recipe)
+        val r: Recipe = mapper.mapFromEntity(networkEntity)
 
     }
 }
