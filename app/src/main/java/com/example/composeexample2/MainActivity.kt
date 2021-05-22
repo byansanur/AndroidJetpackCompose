@@ -34,9 +34,9 @@ class MainActivity : AppCompatActivity() {
 
         // fragment in jetpack
         setContentView(R.layout.activity_main)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.mainContainer, RecipeListFragment())
-            .commit()
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.mainContainer, RecipeListFragment())
+//            .commit()
 
     }
 }
