@@ -1,34 +1,22 @@
 package com.example.composeexample2
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.composeexample2.domain.model.Recipe
-import com.example.composeexample2.fragment.RecipeListFragment
-import com.example.composeexample2.network.model.RecipeNetworkEntity
-import com.example.composeexample2.network.model.RecipeNetworkMapper
+import com.example.composeexample2.network.Constants.Companion.TOKEN_AUTH
+import com.example.composeexample2.network.RetrofitInstance
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+    companion object {
+        const val TAG = "MainActivity"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        /*
 //        setContent {
 //            ColumnLayout()
 //            RowLayout()
@@ -36,15 +24,25 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         // fragment in jetpack
-        setContentView(R.layout.activity_main)
 //        supportFragmentManager.beginTransaction()
 //            .replace(R.id.mainContainer, RecipeListFragment())
 //            .commit()
+//
+//        val mapper = RecipeNetworkMapper()
+//        val recipe = Recipe()
+//        val networkEntity: RecipeNetworkEntity = mapper.mapToEntity(recipe)
+//        val r: Recipe = mapper.mapFromEntity(networkEntity)
+         */
 
-        val mapper = RecipeNetworkMapper()
-        val recipe = Recipe()
-        val networkEntity: RecipeNetworkEntity = mapper.mapToEntity(recipe)
-        val r: Recipe = mapper.mapFromEntity(networkEntity)
+
+        val retrofitInstance = RetrofitInstance.services
+        CoroutineScope(IO).launch {
+            val recipe = retrofitInstance.get(
+                token = TOKEN_AUTH,
+                id = 583
+            )
+            Log.d(TAG, "onCreate: ${recipe.title}")
+        }
 
     }
 }
